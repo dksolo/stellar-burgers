@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from '../../services/store';
 import {
   clearConstructor,
   constructorSelector
-} from '../../services/slices/constructorSlice';
+} from '../../services/slices/burgerConstructorSlice';
 import {
   orderBurger,
   orderBurgerSelector,
