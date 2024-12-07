@@ -29,12 +29,14 @@ export const ResetPasswordUI: FC<ResetPasswordUIProps> = ({
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             name='password'
+            autoComplete='new-password'
           />
         </div>
         <div className='pb-6'>
           <Input
             type='text'
             placeholder='Введите код из письма'
+            autoComplete='one-time-code'
             onChange={(e) => setToken(e.target.value)}
             value={token}
             name='token'

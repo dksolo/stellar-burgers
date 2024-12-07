@@ -23,6 +23,7 @@ export const ForgotPasswordUI: FC<PageUIProps> = ({
           <Input
             type='email'
             placeholder='Укажите e-mail'
+            autoComplete='email'
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             name='email'
