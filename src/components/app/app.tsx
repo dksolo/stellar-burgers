@@ -29,6 +29,8 @@ const App = () => {
   const order = useSelector(getOrderSelector);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const location = useLocation();
+  const background = location.state?.background;
 
   const onModalClose = () => {
     navigate(-1);
@@ -42,7 +44,7 @@ const App = () => {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <Routes>
+      <Routes location={background || location}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
         <Route
@@ -94,33 +96,12 @@ const App = () => {
           }
         />
         <Route path='*' element={<NotFound404 />} />
-        <Route
-          path='/feed/:number'
-          element={
-            <Modal
-              title={
-                order
-                  ? `#${String(orderNumber).padStart(6, '0')}`
-                  : 'Загружаем...'
-              }
-              onClose={onModalClose}
-            >
-              <OrderInfo />
-            </Modal>
-          }
-        />
-        <Route
-          path='/ingredients/:id'
-          element={
-            <Modal title={'Детали ингредиента'} onClose={onModalClose}>
-              <IngredientDetails />
-            </Modal>
-          }
-        />
-        <Route
-          path='/profile/orders/:number'
-          element={
-            <ProtectedRoute>
+      </Routes>
+      {background && (
+        <Routes>
+          <Route
+            path='/feed/:number'
+            element={
               <Modal
                 title={
                   order
@@ -131,10 +112,35 @@ const App = () => {
               >
                 <OrderInfo />
               </Modal>
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
+            }
+          />
+          <Route
+            path='/ingredients/:id'
+            element={
+              <Modal title={'Детали ингредиента'} onClose={onModalClose}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path='/profile/orders/:number'
+            element={
+              <ProtectedRoute>
+                <Modal
+                  title={
+                    order
+                      ? `#${String(orderNumber).padStart(6, '0')}`
+                      : 'Загружаем...'
+                  }
+                  onClose={onModalClose}
+                >
+                  <OrderInfo />
+                </Modal>
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      )}
     </div>
   );
 };
