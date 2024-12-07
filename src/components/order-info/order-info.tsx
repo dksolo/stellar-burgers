@@ -2,11 +2,11 @@ import { FC, useMemo, useEffect } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
-import { ingredientsSelector } from '../../services/slices/ingredientsSlice';
+import { ingredientsSelector } from '../../services/slices/ingredients/ingredientsSlice';
 import {
   getOrderSelector,
   getOrderByNumber
-} from '../../services/slices/orderSlice';
+} from '../../services/slices/order/orderSlice';
 import { useSelector, useDispatch } from '../../services/store';
 import { useParams } from 'react-router-dom';
 
@@ -16,7 +16,6 @@ export const OrderInfo: FC = () => {
   const params = useParams();
   const dispatch = useDispatch();
 
-  /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
 

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   ordersFeedsSelector,
   getFeeds
-} from '../../services/slices/feedsSlice';
+} from '../../services/slices/feeds/feedsSlice';
 import { AppDispatch } from '../../services/store';
 
 export const Feed: FC = () => {

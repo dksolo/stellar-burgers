@@ -1,5 +1,6 @@
-import { TConstructorIngredient, TIngredient } from '../../utils/types';
+import { TConstructorIngredient, TIngredient } from '../../../utils/types';
 import { PayloadAction, createSlice, nanoid } from '@reduxjs/toolkit';
+import { swapItemsInArray } from '../../sliceUtils/reusableUtils';
 
 type TConstructorState = {
   bun: TConstructorIngredient | null;
@@ -61,28 +62,6 @@ const constructorSlice = createSlice({
     constructorSelector: (state) => state
   }
 });
-
-const swapItemsInArray = <T>(i: number, array: T[], direction: string): T[] => {
-  switch (direction) {
-    case 'UP':
-      return [
-        ...array.slice(0, i - 1),
-        array[i],
-        array[i - 1],
-        ...array.slice(i + 1)
-      ];
-    case 'DOWN':
-      return [
-        ...array.slice(0, i),
-        array[i + 1],
-        array[i],
-        ...array.slice(i + 2)
-      ];
-
-    default:
-      return array;
-  }
-};
 
 export default constructorSlice.reducer;
 export const { constructorSelector } = constructorSlice.selectors;

@@ -1,5 +1,5 @@
 import { getOrderByNumberApi } from '@api';
-import { TOrder } from '../../utils/types';
+import { TOrder } from '../../../utils/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 type TOrderState = {

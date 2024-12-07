@@ -16,13 +16,13 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { ProtectedRoute } from '../protected-route';
 import { useDispatch, useSelector } from 'react-redux';
-import { checkUserAuth } from '../../services/slices/userSlice';
+import { checkUserAuth } from '../../services/slices/user/userSlice';
 import { AppDispatch } from 'src/services/store';
 import {
   getOrderNumberSelector,
   getOrderSelector
-} from '../../services/slices/orderSlice';
-import { getIngredients } from '../../services/slices/ingredientsSlice';
+} from '../../services/slices/order/orderSlice';
+import { getIngredients } from '../../services/slices/ingredients/ingredientsSlice';
 
 const App = () => {
   const orderNumber = useSelector(getOrderNumberSelector) ?? '';

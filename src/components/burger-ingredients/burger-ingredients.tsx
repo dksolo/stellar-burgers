@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, FC } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { TTabMode, TIngredient } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
-import { ingredientsSelector } from '../../services/slices/ingredientsSlice';
+import { ingredientsSelector } from '../../services/slices/ingredients/ingredientsSlice';
 import { useSelector } from '../../services/store';
 
 const getCategory = (ingredients: TIngredient[], type: string): TIngredient[] =>
