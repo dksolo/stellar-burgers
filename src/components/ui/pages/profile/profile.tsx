@@ -30,6 +30,7 @@ export const ProfileUI: FC<ProfileUIProps> = ({
             placeholder={'Имя'}
             onChange={handleInputChange}
             value={formValue.name}
+            autoComplete='name'
             name={'name'}
             error={false}
             errorText={''}
@@ -40,6 +41,7 @@ export const ProfileUI: FC<ProfileUIProps> = ({
         <div className='pb-6'>
           <Input
             type={'email'}
+            autoComplete='email'
             placeholder={'E-mail'}
             onChange={handleInputChange}
             value={formValue.email}
@@ -54,6 +56,7 @@ export const ProfileUI: FC<ProfileUIProps> = ({
           <Input
             type={'password'}
             placeholder={'Пароль'}
+            autoComplete='new-password'
             onChange={handleInputChange}
             value={formValue.password}
             name={'password'}
