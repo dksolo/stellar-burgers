@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import {
   Input,
   Button,
@@ -10,11 +10,10 @@ import { LoginUIProps } from './type';
 
 export const LoginUI: FC<LoginUIProps> = ({
   email,
-  setEmail,
   errorText,
   handleSubmit,
   password,
-  setPassword
+  handleChange
 }) => (
   <main className={styles.container}>
     <div className={`pt-6 ${styles.wrapCenter}`}>
@@ -30,7 +29,7 @@ export const LoginUI: FC<LoginUIProps> = ({
               type='email'
               placeholder='E-mail'
               autoComplete='email'
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleChange}
               value={email}
               name='email'
               error={false}
@@ -40,7 +39,7 @@ export const LoginUI: FC<LoginUIProps> = ({
           </div>
           <div className='pb-6'>
             <PasswordInput
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleChange}
               autoComplete='current-password'
               value={password}
               name='password'

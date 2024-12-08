@@ -5,66 +5,36 @@ import {
   updateUser,
   userDataSelector
 } from '../../services/slices/user/userSlice';
+import { useForm } from '../../services/hooks/useForm';
 
 export const Profile: FC = () => {
   const user = useSelector(userDataSelector);
   const dispatch = useDispatch();
 
-  const [formValue, setFormValue] = useState({
+  const { values, handleChange, handleCancel } = useForm({
     name: user?.name || '',
     email: user?.email || '',
     password: '',
+    errorText: '',
     isChanged: false
   });
 
-  useEffect(() => {
-    setFormValue((prevState) => ({
-      ...prevState,
-      name: user?.name || '',
-      email: user?.email || '',
-      password: ''
-    }));
-  }, [user]);
-
   const handleSubmit = (e: SyntheticEvent) => {
-    dispatch(updateUser(formValue));
+    dispatch(updateUser(values));
     e.preventDefault();
-  };
-
-  const handleCancel = (e: SyntheticEvent) => {
-    e.preventDefault();
-    setFormValue({
-      name: user?.name || '',
-      email: user?.email || '',
-      password: '',
-      isChanged: false
-    });
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormValue((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value
-    }));
-    if (
-      user?.name !== formValue.name ||
-      user?.email !== formValue?.email ||
-      !!formValue.password
-    ) {
-      setFormValue((prevState) => ({
-        ...prevState,
-        isChanged: true
-      }));
-    }
   };
 
   return (
     <ProfileUI
-      formValue={formValue}
-      isFormChanged={formValue.isChanged}
+      formValue={{
+        name: values.name,
+        email: values.email,
+        password: values.password
+      }}
+      isFormChanged={values.isChanged}
       handleCancel={handleCancel}
       handleSubmit={handleSubmit}
-      handleInputChange={handleInputChange}
+      handleInputChange={handleChange}
     />
   );
 };
