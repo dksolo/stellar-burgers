@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import {
   Input,
   Button,
@@ -11,12 +11,10 @@ import { RegisterUIProps } from './type';
 export const RegisterUI: FC<RegisterUIProps> = ({
   errorText,
   email,
-  setEmail,
+  handleChange,
   handleSubmit,
   password,
-  setPassword,
-  userName,
-  setUserName
+  userName
 }) => (
   <main className={styles.container}>
     <div className={`pt-6 ${styles.wrapCenter}`}>
@@ -31,29 +29,32 @@ export const RegisterUI: FC<RegisterUIProps> = ({
             <Input
               type='text'
               placeholder='Имя'
-              onChange={(e) => setUserName(e.target.value)}
+              autoComplete='name'
+              onChange={handleChange}
               value={userName}
-              name='name'
+              name={'name'}
               error={false}
-              errorText=''
-              size='default'
+              errorText={errorText}
+              size={'default'}
             />
           </div>
           <div className='pb-6'>
             <Input
               type='email'
               placeholder='E-mail'
-              onChange={(e) => setEmail(e.target.value)}
+              autoComplete='email'
+              onChange={handleChange}
               value={email}
               name={'email'}
               error={false}
-              errorText=''
+              errorText={errorText}
               size={'default'}
             />
           </div>
           <div className='pb-6'>
             <PasswordInput
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleChange}
+              autoComplete='new-password'
               value={password}
               name='password'
             />

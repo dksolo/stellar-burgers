@@ -11,10 +11,9 @@ import { ResetPasswordUIProps } from './type';
 export const ResetPasswordUI: FC<ResetPasswordUIProps> = ({
   errorText,
   password,
-  setPassword,
+  handleChange,
   handleSubmit,
-  token,
-  setToken
+  token
 }) => (
   <main className={styles.container}>
     <div className={`pt-6 ${styles.wrapCenter}`}>
@@ -26,16 +25,18 @@ export const ResetPasswordUI: FC<ResetPasswordUIProps> = ({
       >
         <div className='pb-6'>
           <PasswordInput
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handleChange}
             value={password}
             name='password'
+            autoComplete='new-password'
           />
         </div>
         <div className='pb-6'>
           <Input
             type='text'
             placeholder='Введите код из письма'
-            onChange={(e) => setToken(e.target.value)}
+            autoComplete='one-time-code'
+            onChange={handleChange}
             value={token}
             name='token'
             error={false}

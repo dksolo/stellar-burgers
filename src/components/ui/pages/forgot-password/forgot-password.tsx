@@ -8,7 +8,7 @@ import { PageUIProps } from '../common-type';
 export const ForgotPasswordUI: FC<PageUIProps> = ({
   errorText,
   email,
-  setEmail,
+  handleChange,
   handleSubmit
 }) => (
   <main className={styles.container}>
@@ -23,7 +23,8 @@ export const ForgotPasswordUI: FC<PageUIProps> = ({
           <Input
             type='email'
             placeholder='Укажите e-mail'
-            onChange={(e) => setEmail(e.target.value)}
+            autoComplete='email'
+            onChange={handleChange}
             value={email}
             name='email'
             error={false}
