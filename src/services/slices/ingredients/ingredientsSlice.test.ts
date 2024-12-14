@@ -11,42 +11,42 @@ describe('ingredientsSlice', () => {
   it('Ingredients Failing', () => {
     const testError = new Error('Test Error');
     const testState: TIngredientsState = {
-        ingredients: [],
-        loading: false,
-        error: { 
-            message: testError.message
-        }
+      ingredients: [],
+      loading: false,
+      error: {
+        message: testError.message
+      }
     };
 
     const actualState = ingredientsReducer(
-        {
-            ...initialState,
-            loading: true
-        }, 
-        getIngredients.rejected(testError, '')
-    )
+      {
+        ...initialState,
+        loading: true
+      },
+      getIngredients.rejected(testError, '')
+    );
 
-    expect(actualState).toMatchObject(testState)
-  })
+    expect(actualState).toMatchObject(testState);
+  });
 
   it('Ingredients Pending', () => {
     const testState = {
-        ingredients: [],
-        loading: true,
-        error: null
+      ingredients: [],
+      loading: true,
+      error: null
     };
 
     const actualState = ingredientsReducer(
-        {
-            ...initialState,
-            loading: false,
-            error: new Error('Test Error')
-        }, 
-        getIngredients.pending('')
-    )
+      {
+        ...initialState,
+        loading: false,
+        error: new Error('Test Error')
+      },
+      getIngredients.pending('')
+    );
 
-    expect(actualState).toEqual(testState)
-  })
+    expect(actualState).toEqual(testState);
+  });
 
   it('Ingredients Fullfilled', () => {
     const testData = [
