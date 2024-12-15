@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for services/slices/ingredients/ingredientsSlice.ts</title>
+    <title>Code coverage report for services/slices/order-burger/orderBurgerSlice.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">services/slices/ingredients</a> ingredientsSlice.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">services/slices/order-burger</a> orderBurgerSlice.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">92.53% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>58/58</span>
+                <span class='fraction'>62/67</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">92.53% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>58/58</span>
+                <span class='fraction'>62/67</span>
             </div>
         
             
@@ -121,7 +121,16 @@
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -153,6 +162,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -179,64 +193,77 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { getIngredientsApi } from '../../../utils/burger-api';
-import { TIngredient } from '@utils-types';
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { orderBurgerApi } from '../../../utils/burger-api';
 import {
   createAsyncThunk,
   createSlice,
   SerializedError
 } from '@reduxjs/toolkit';
-import { RootState } from '../../store';
+import { TOrder } from '@utils-types';
 &nbsp;
-export type TIngredientsState = {
-  ingredients: TIngredient[];
-  loading: boolean;
+export type TNewOrderState = {
+  order: TOrder | null;
+  name: string;
+  orderRequest: boolean;
   error: null | SerializedError;
 };
 &nbsp;
-const initialState: TIngredientsState = {
-  ingredients: [],
-  loading: false,
+const initialState: TNewOrderState = {
+  order: null,
+  name: '',
+  orderRequest: false,
   error: null
 };
 &nbsp;
-export const getIngredients = createAsyncThunk(
-  'ingredients/getIngredients',
-  async () =&gt; getIngredientsApi()
+export const orderBurger = createAsyncThunk(
+  'orders/newOrder',
+  async (data: string[]) =&gt; orderBurgerApi(data)
 );
 &nbsp;
-const ingredientsSlice = createSlice({
-  name: 'ingredients',
+const orderBurgerSlice = createSlice({
+  name: 'orderBurger',
   initialState,
-  reducers: {},
+  reducers: {
+    closeOrderState: <span class="fstat-no" title="function not covered" >(state) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      state.orderRequest = false;</span>
+<span class="cstat-no" title="statement not covered" >      state.order = null;</span>
+<span class="cstat-no" title="statement not covered" >      state.name = '';</span>
+<span class="cstat-no" title="statement not covered" >      state.error = null;</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+  },
   selectors: {
-    ingredientsSelector: <span class="fstat-no" title="function not covered" >(state) =&gt; state.</span>ingredients,
-    ingredientsLoadingSelector: <span class="fstat-no" title="function not covered" >(state) =&gt; state.</span>loading
+    orderBurgerSelector: <span class="fstat-no" title="function not covered" >(state) =&gt; state,</span>
+    orderBurgerRequestSelector: <span class="fstat-no" title="function not covered" >(state) =&gt; state.</span>orderRequest
   },
   extraReducers: (builder) =&gt; {
     builder
-      .addCase(getIngredients.pending, (state) =&gt; {
-        state.loading = true;
+      .addCase(orderBurger.pending, (state) =&gt; {
+        state.orderRequest = true;
+        state.order = null;
         state.error = null;
       })
-      .addCase(getIngredients.fulfilled, (state, action) =&gt; {
-        state.ingredients = action.payload;
-        state.loading = false;
+      .addCase(orderBurger.fulfilled, (state, action) =&gt; {
+        state.order = action.payload.order;
+        state.name = action.payload.name;
+        state.orderRequest = false;
         state.error = null;
       })
-      .addCase(getIngredients.rejected, (state, { error }) =&gt; {
-        state.loading = false;
+      .addCase(orderBurger.rejected, (state, { error }) =&gt; {
+        state.orderRequest = false;
+        state.order = null;
         state.error = error;
       });
   }
 });
 &nbsp;
-export default ingredientsSlice.reducer;
-export const { ingredientsSelector, ingredientsLoadingSelector } =
-  ingredientsSlice.selectors;
-export const getIngredientByID =
-<span class="fstat-no" title="function not covered" >  (id: string | undefined) =&gt; (state: RootState) =&gt;</span>
-    state.ingredients.ingredients.find((i) =&gt; i._id === id);
+export default orderBurgerSlice.reducer;
+export const { orderBurgerSelector, orderBurgerRequestSelector } =
+  orderBurgerSlice.selectors;
+export const { closeOrderState } = orderBurgerSlice.actions;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

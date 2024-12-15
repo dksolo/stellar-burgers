@@ -45,27 +45,27 @@ describe('Order Slice Tests', () => {
 
   it('Order Success', () => {
     const testData = {
-        _id: '675e9133750864001d371564',
-        ingredients: [
+      _id: '675e9133750864001d371564',
+      ingredients: [
         '643d69a5c3f7b9001cfa093d',
         '643d69a5c3f7b9001cfa093e',
         '643d69a5c3f7b9001cfa0940',
         '643d69a5c3f7b9001cfa093d'
-        ],
-        owner: '6742dd79b27b06001c3ea354',
-        status: 'done',
-        name: 'Флюоресцентный люминесцентный метеоритный бургер',
-        createdAt: '2024-12-15T08:20:03.594Z',
-        updatedAt: '2024-12-15T08:20:04.528Z',
-        number: 1,
-        __v: 0
+      ],
+      owner: '6742dd79b27b06001c3ea354',
+      status: 'done',
+      name: 'Флюоресцентный люминесцентный метеоритный бургер',
+      createdAt: '2024-12-15T08:20:03.594Z',
+      updatedAt: '2024-12-15T08:20:04.528Z',
+      number: 1,
+      __v: 0
     };
 
     const actualState = orderReducer(
       {
         ...initialState
       },
-      getOrderByNumber.fulfilled({orders: [testData], success: true}, '', 1)
+      getOrderByNumber.fulfilled({ orders: [testData], success: true }, '', 1)
     );
     expect(actualState).toEqual({
       order: testData,
