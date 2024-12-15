@@ -1,4 +1,4 @@
-const clcikIngredient =(ingredientsName: string[]) => {
+const clickIngredient =(ingredientsName: string[]) => {
     ingredientsName.forEach((ingredientName)=>{
         cy.get('div section div ul li').contains(ingredientName).parent().contains('Добавить').click()
     })
@@ -41,19 +41,19 @@ describe('Ingredients', function () {
     });
 
     it("ADD BUN", function () {
-        clcikIngredient(['Тестовая булка'])
+        clickIngredient(['Тестовая булка'])
         checkIngredient(['Тестовая булка (верх)','Тестовая булка (низ)'])
     });    
 
     it("ADD MEAT", function () {
         const meatList = ['Тестовое мясо 1', 'Тестовое мясо 2', 'Тестовое мясо 3']
-        clcikIngredient(meatList)
+        clickIngredient(meatList)
         checkIngredient(meatList)
     });
 
     it("ADD SOUCE", function () {
         const souceList = ['Тестовый соус']
-        clcikIngredient(souceList)
+        clickIngredient(souceList)
         checkIngredient(souceList)
     });
 }) 
@@ -95,7 +95,7 @@ describe('User Order', function () {
     it("Ordering", function () {
         const clickingList = ['Тестовая булка', 'Тестовый соус', 'Тестовое мясо 1']
         const checkingList = ['Тестовая булка (верх)', 'Тестовая булка (низ)', 'Тестовый соус', 'Тестовое мясо 1']
-        clcikIngredient(clickingList)
+        clickIngredient(clickingList)
         checkIngredient(checkingList)
         cy.get('section div button').contains('Оформить заказ').click()
         modalShould('exist')
