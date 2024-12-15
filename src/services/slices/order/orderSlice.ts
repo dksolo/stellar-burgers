@@ -1,13 +1,19 @@
-import { getOrderByNumberApi } from '@api';
+import { getOrderByNumberApi } from '../../../utils/burger-api';
 import { TOrder } from '../../../utils/types';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createSlice,
+  SerializedError
+} from '@reduxjs/toolkit';
 
-type TOrderState = {
+export type TOrderState = {
   order: TOrder | null;
+  error: null | SerializedError;
 };
 
 const initialState: TOrderState = {
-  order: null
+  order: null,
+  error: null
 };
 
 export const getOrderByNumber = createAsyncThunk(
@@ -27,9 +33,15 @@ const orderSlice = createSlice({
     builder
       .addCase(getOrderByNumber.pending, (state) => {
         state.order = null;
+        state.error = null;
       })
       .addCase(getOrderByNumber.fulfilled, (state, action) => {
         state.order = action.payload.orders[0] ?? null;
+        state.error = null;
+      })
+      .addCase(getOrderByNumber.rejected, (state, { error }) => {
+        state.order = null;
+        state.error = error;
       });
   }
 });
