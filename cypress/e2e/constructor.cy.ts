@@ -1,51 +1,80 @@
-describe('Ingredients', function () {
+const clcikIngredient =(ingredientsName: string[]) => {
+    ingredientsName.forEach((ingredientName)=>{
+        cy.get('div section div ul li').contains(ingredientName).parent().contains('Добавить').click()
+    })
+}
+const checkIngredient = (ingredientsName: string[]) => {
+    ingredientsName.forEach((ingredientName)=>{
+        cy.get('section div div span span').should('contain', ingredientName)
+    })
+}
+
+const checkIfEmpty = () => {
+    cy.get('section div').contains('Выберите булки').should('exist')
+    cy.get('section div').contains('Выберите начинку').should('exist')
+}
+
+const modalShould = (exist: string) => {
+    cy.get('div[id^=modals] div').should(exist)        
+}
+
+const clickBun = () => {
+    cy.get('div section div ul li').contains('Тестовая булка').click()
+    modalShould('exist')
+}
+
+const clickX = () => {
+    cy.get('div[id^=modals] div div button svg').click()
+    modalShould('not.exist')
+}
+
+const clickOverlay = () => {
+    cy.get('body').click(0,0);
+    cy.get('div[id^=modals] div').should('not.exist')
+}
+
+describe('Ingredients', function () {    
     this.beforeEach(function () {
         cy.intercept('GET', 'api/ingredients', { fixture: 'ingredients.json' });
         cy.viewport(1300, 800);
-        cy.visit('http://localhost:4000')
+        cy.visit('/');
     });
 
     it("ADD BUN", function () {
-        cy.get('div section div ul li').contains('Тестовая булка').parent().contains('Добавить').click()
-        cy.get('section div div span span').should('contain', 'Тестовая булка (верх)')
-        cy.get('section div div span span').should('contain', 'Тестовая булка (низ)')
+        clcikIngredient(['Тестовая булка'])
+        checkIngredient(['Тестовая булка (верх)','Тестовая булка (низ)'])
     });    
 
     it("ADD MEAT", function () {
-        cy.get('div section div ul li').contains('Тестовое мясо 1').parent().contains('Добавить').click()
-        cy.get('div section div ul li').contains('Тестовое мясо 2').parent().contains('Добавить').click()
-        cy.get('div section div ul li').contains('Тестовое мясо 3').parent().contains('Добавить').click()
-        cy.get('section div div span span').should('contain', 'Тестовое мясо 1')
-        cy.get('section div div span span').should('contain', 'Тестовое мясо 2')
-        cy.get('section div div span span').should('contain', 'Тестовое мясо 3')
+        const meatList = ['Тестовое мясо 1', 'Тестовое мясо 2', 'Тестовое мясо 3']
+        clcikIngredient(meatList)
+        checkIngredient(meatList)
     });
 
     it("ADD SOUCE", function () {
-        cy.get('div section div ul li').contains('Тестовый соус').parent().contains('Добавить').click()
-        cy.get('section div div span span').should('contain', 'Тестовый соус')
+        const souceList = ['Тестовый соус']
+        clcikIngredient(souceList)
+        checkIngredient(souceList)
     });
 }) 
 
 
 describe('Ingerdient Modal: Open and Close', function () {
+
     this.beforeEach(function () {
         cy.intercept('GET', 'api/ingredients', { fixture: 'ingredients.json' });
         cy.viewport(1300, 800);
-        cy.visit('http://localhost:4000')
+        cy.visit('/');
     });
 
     it("Ingerdient Modal: Open and Close X", function () {
-        cy.get('div section div ul li').contains('Тестовая булка').click()
-        cy.get('div[id^=modals] div div button svg').should('exist')
-        cy.get('div[id^=modals] div div button svg').click()
-        cy.get('div[id^=modals] div').should('not.exist')
+        clickBun()
+        clickX()
     }); 
 
     it("Ingerdient Modal: Open and Close Overlay", function () {
-        cy.get('div section div ul li').contains('Тестовая булка').click()
-        cy.get('div[id^=modals] div').should('exist')
-        cy.get('body').click(0,0);
-        cy.get('div[id^=modals] div').should('not.exist')
+        clickBun()
+        clickOverlay()
     }); 
 }) 
 
@@ -60,23 +89,18 @@ describe('User Order', function () {
           'Bearer ThisIsAnAccessToken'
         );
         cy.viewport(1300, 800);
-        cy.visit('http://localhost:4000')
+        cy.visit('/');
     });
 
     it("Ordering", function () {
-        cy.get('div section div ul li').contains('Тестовая булка').parent().contains('Добавить').click()
-        cy.get('div section div ul li').contains('Тестовый соус').parent().contains('Добавить').click()
-        cy.get('div section div ul li').contains('Тестовое мясо 1').parent().contains('Добавить').click()
-        cy.get('section div div span span').should('contain', 'Тестовый соус')
-        cy.get('section div div span span').should('contain', 'Тестовое мясо 1')
-        cy.get('section div div span span').should('contain', 'Тестовая булка (верх)')
-        cy.get('section div div span span').should('contain', 'Тестовая булка (низ)')
+        const clickingList = ['Тестовая булка', 'Тестовый соус', 'Тестовое мясо 1']
+        const checkingList = ['Тестовая булка (верх)', 'Тестовая булка (низ)', 'Тестовый соус', 'Тестовое мясо 1']
+        clcikIngredient(clickingList)
+        checkIngredient(checkingList)
         cy.get('section div button').contains('Оформить заказ').click()
-        cy.get('div[id^=modals]').should('exist')
+        modalShould('exist')
         cy.get('div[id^=modals] h2').contains('123456')
-        cy.get('div[id^=modals] div div button svg').click()
-        cy.get('div[id^=modals] div').should('not.exist')
-        cy.get('section div').contains('Выберите булки').should('exist')
-        cy.get('section div').contains('Выберите начинку').should('exist')
+        clickX()
+        checkIfEmpty()
     });
 }) 
