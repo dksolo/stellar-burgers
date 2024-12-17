@@ -2,7 +2,7 @@ import { TConstructorIngredient, TIngredient } from '../../../utils/types';
 import { PayloadAction, createSlice, nanoid } from '@reduxjs/toolkit';
 import { swapItemsInArray } from '../../sliceUtils/reusableUtils';
 
-type TConstructorState = {
+export type TConstructorState = {
   bun: TConstructorIngredient | null;
   ingredients: TConstructorIngredient[];
 };
